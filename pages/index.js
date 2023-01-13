@@ -9,15 +9,10 @@ export default function Home() {
 
   const uploadFile = async (e) => {
     const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append('uid', 'kjh123-223')
-    let req = {
-      'files.file': undefined,
-      data: {
-        uid: 'kjh123-223',
-      },
-    }
-    console.log(`req: ${JSON.stringify(req)}`)
+    console.log(e.target.files)
+    const data = new FormData()
+    data.append('files', file)
+
     try {
       const res = await fetch(`${API_URL}/api/documents`, {
         method: 'POST',
@@ -40,9 +35,11 @@ export default function Home() {
       </Head>
       <main>
         {/* Centered Layout */}
-        <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
-          <div>
-            <label className='block text-sm font-medium text-gray-700'>
+        <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 flex justify-center'>
+          {/* Center div below */}
+<div className='w-full max-w-md'>
+
+              <label className='block text-sm font-medium text-gray-700'>
               Upload File
             </label>
             <div className='mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6'>
