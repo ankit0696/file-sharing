@@ -3,15 +3,15 @@ import React from 'react'
 export default function ProgressBar({ percentage = 0 }) {
   return (
     <div>
-      <div className>
+      <div>
         <h4 className='sr-only'>Status</h4>
         <p className='text-sm font-medium text-gray-900'>
-          Uploading your file...
+          File upload in progress
         </p>
         <div className='mt-6' aria-hidden='true'>
           <div className='bg-gray-200 rounded-full overflow-hidden'>
             <div
-              className='h-2 bg-green-600 rounded-full'
+              className='h-2 bg-green-600 rounded-full transition-all duration-300'
               style={{ width: `${percentage}%` }}
             />
           </div>
