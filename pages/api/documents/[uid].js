@@ -15,8 +15,9 @@ export default async function handler(req, res) {
 
     } catch (e) {
         console.log(e)
+        res.status(404).json({message: 'File not found on server'})
     }
-    res.status(404).json({message: 'File not found on server'})
+
 }
 
 
