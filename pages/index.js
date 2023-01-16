@@ -43,10 +43,41 @@ export default function Home() {
             console.log(e)
         }
     }
-    const copyToClipboard = (e) => {
+    const copyToClipboard = async (e) => {
         e.preventDefault()
-        navigator.clipboard.writeText(`${NEXT_URL}/api/documents/${uid}`)
-        toast.success('Link copied to clipboard')
+        const textToCopy = `${NEXT_URL}/api/documents/${uid}`
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy).then(function () {
+                toast.success('Copied to clipboard')
+            }).catch(function (err) {
+                toast.error('Failed to copy')
+                console.log(err)
+            })
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            }).then(() => {
+                toast.success('Copied to clipboard')
+            }).catch((err) => {
+                toast.error('Failed to copy')
+                console.log(err)
+            })
+        }
+
     }
 
     const resetFile = () => {
@@ -69,17 +100,15 @@ export default function Home() {
                 className='max-w-7xl mx-auto py-6 px-2 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen'>
                 {/* Center div below */}
                 <div className='w-full max-w-lg transition-all'>
-                    {percentage > 0 && (
-                        <div className="mb-6 cursor-pointer">
-                            <p
-                                className='text-sm font-medium text-gray-700 inline-flex items-center'
-                                onClick={resetFile}
-                            >
-                                <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                                Upload new file
-                            </p>
-                        </div>
-                    )}
+                    {percentage > 0 && (<div className="mb-6 cursor-pointer">
+                        <p
+                            className='text-sm font-medium text-gray-700 inline-flex items-center'
+                            onClick={resetFile}
+                        >
+                            <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true"/>
+                            Upload new file
+                        </p>
+                    </div>)}
 
                     {!uploading && (<div>
                         <label className='block text-sm font-medium text-gray-700'>
