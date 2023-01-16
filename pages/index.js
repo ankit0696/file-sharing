@@ -12,6 +12,7 @@ import {PlusIcon} from "@heroicons/react/24/solid";
 export default function Home() {
     const [percentage, setPercentage] = useState(0)
     const [uid, setUid] = useState(new Date().getTime() + nanoid(5))
+    const [uploading, setUploading] = useState(false)
 
     const uploadFile = async (e) => {
         const file = e.target.files[0]
@@ -19,6 +20,7 @@ export default function Home() {
         const data = new FormData()
         data.append('files.file', file)
         data.append('data', JSON.stringify({"uid": uid}))
+        setUploading(true)
         try {
             const upload_res = await axios.post(`${API_URL}/api/documents`, data, {
                 headers: {
@@ -40,6 +42,7 @@ export default function Home() {
             }
             console.log(e)
         }
+        setUploading(false)
     }
     const copyToClipboard = (e) => {
         e.preventDefault()
@@ -79,7 +82,7 @@ export default function Home() {
                         </div>
                     )}
 
-                    {percentage === 0 && (<div>
+                    {!uploading && (<div>
                         <label className='block text-sm font-medium text-gray-700'>
                             Upload File
                         </label>
@@ -125,10 +128,10 @@ export default function Home() {
                     </div>)}
                     {/* Upload bar */}
                     <div className='mt-4'>
-                        {percentage > 0 && <ProgressBar percentage={percentage}/>}
+                        {uploading && <ProgressBar percentage={percentage}/>}
                     </div>
                     {/* Show file uid */}
-                    {percentage > 0 && (<div className='flex flex-col items-center justify-center'>
+                    {uploading && (<div className='flex flex-col items-center justify-center'>
 
                         <div className='mt-4 flex justify-around cursor-pointer' onClick={copyToClipboard}>
                             {/*    Show url to share */}
