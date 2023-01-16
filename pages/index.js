@@ -42,7 +42,6 @@ export default function Home() {
             }
             console.log(e)
         }
-        setUploading(false)
     }
     const copyToClipboard = (e) => {
         e.preventDefault()
@@ -51,6 +50,7 @@ export default function Home() {
     }
 
     const resetFile = () => {
+        setUploading(false)
         setPercentage(0)
         setUid(new Date().getTime() + nanoid(5))
     }
