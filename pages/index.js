@@ -51,7 +51,6 @@ export default function Home() {
     }
 
     const resetFile = () => {
-        setFile(null)
         setPercentage(0)
         setUid(new Date().getTime() + nanoid(5))
     }
