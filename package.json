@@ -1,6 +1,9 @@
 {
   "name": "file-sharing",
   "version": "1.0.1",
+  "author": {
+    "name": "Ankit Kumar"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
