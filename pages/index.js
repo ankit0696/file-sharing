@@ -89,8 +89,8 @@ export default function Home() {
 
     return (<>
         <Head>
-            <title>IITP LAN Uploader</title>
-            <meta name='description' content='IITP LAN Uploader' />
+            <title>IITP File Uploader</title>
+            <meta name='description' content='IITP File Uploader' />
             <meta name='viewport' content='width=device-width, initial-scale=1'/>
             <link rel='icon' href='/iitp_logo.svg'/>
         </Head>
@@ -106,7 +106,7 @@ export default function Home() {
                     </div>
                     {/*Heading*/}
                     <div className='text-center mt-4'>
-                        <h1 className='text-3xl font-thin text-gray-900'>IITP LAN Uploader</h1>
+                        <h1 className='text-3xl font-thin text-gray-900'>IITP File Uploader</h1>
                     </div>
                 </div>
 
