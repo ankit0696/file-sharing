@@ -1,12 +1,16 @@
 import React from 'react'
 
-export default function ProgressBar({ percentage = 0 }) {
+export default function ProgressBar({ percentage = 0, uploaded = 0 }) {
   return (
     <div>
       <div>
         <h4 className='sr-only'>Status</h4>
         <p className='text-sm font-medium text-gray-900'>
-          File upload in progress
+          {uploaded === 1
+            ? 'Uploaded Successfully'
+            : uploaded === 2
+            ? 'Upload Failed'
+            : 'Upload in Progress'}
         </p>
         <div className='mt-6' aria-hidden='true'>
           <div className='bg-gray-200 rounded-full overflow-hidden'>
