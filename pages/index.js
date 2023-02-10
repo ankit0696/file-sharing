@@ -17,12 +17,12 @@ export default function Home() {
     const [uploaded, setUploaded] = useState(0)
 
     const uploadFile = async (e) => {
+      setUploading(true)
       const file = e.target.files[0]
       console.log(e.target.files)
       const data = new FormData()
       data.append('files.file', file)
       data.append('data', JSON.stringify({ uid: uid }))
-      setUploading(true)
       try {
         const upload_res = await axios.post(`${API_URL}/api/documents`, data, {
           headers: {
